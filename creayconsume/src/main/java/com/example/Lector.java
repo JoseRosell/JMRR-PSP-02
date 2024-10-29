@@ -8,6 +8,17 @@ public class Lector extends Thread {
         this.lista = lista;
     }
 
+    private void espera(){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void lee(int position){
+        this.lista.clearValue(position);
+    }
 
 
 
