@@ -8,55 +8,39 @@ public class Escritor extends Thread {
         this.lista = lista;
     }
 
-    
-
     @Override
     public void run() {
         while (true) {
-            switch (lista.getPosicionDeTrabajo()) {
-                case 0:
-                
-                    System.out.println(Thread.currentThread().getName() + ": Produce el numero " + lista.escribe(0));
-                    try {
-                        Thread.sleep(500);
-                        notifyAll();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                
+            synchronized (lista) {
 
-                case 1:
-                
-                    System.out.println(Thread.currentThread().getName() + ": Produce el numero " + lista.escribe(1));
-                    try {
-                        Thread.sleep(500);
-                        notifyAll();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                
+                switch (lista.getPosicionDeTrabajo()) {
+                    case 0:
+                        lista.escribe(0);
+                        break;
 
-                case 2:
-                    System.out.println(Thread.currentThread().getName() + ": Produce el numero " + lista.escribe(2));
-                    try {
-                        Thread.sleep(500);
-                        notifyAll();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                
+                    case 1:
+                        lista.escribe(1);
+                        break;
 
-                default:
-                    System.out.println(Thread.currentThread().getName() + ": Lista llena, espero ... ");
-                    try {
-                        this.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
+                    case 2:
+                        lista.escribe(2);
+                        break;
+
+                    default:
+                        System.out.println(Thread.currentThread().getName() + ": Lista llena, espero ... ");
+                        try {
+                            lista.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+
+                try {
+                    this.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
         }

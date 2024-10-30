@@ -14,8 +14,8 @@ public class Lista {
      * @return primera posición libre de la lista en la que el hilo puede trabajar
      * 
      */
-    synchronized public int getPosicionDeTrabajo() {
-
+    public int getPosicionDeTrabajo() {
+        synchronized(this){
         if (this.lista[0] == 0) {
             if (Thread.currentThread().getName().equals("Escritor1")) {
                 return 0;
@@ -44,29 +44,28 @@ public class Lista {
             }
         }
     }
+    }
 
     /**
      * Método que escribe donde se le indica, una cifra aleatoria entre 1 y 100
      * 
      * @param position posición del Buffer en el que escribe el nuevo numero
      */
-    public int escribe(int position) {
-        Random random = new Random();
-        int numero = random.nextInt(99);
-        numero++;
-        this.setValue(position, numero);
-        return numero;
-    }
+    public synchronized void escribe(int position) {
+        if (position == 3) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
 
-    /*
-     * Introduce en una posición del array (pos) un valor (val)
-     * 
-     * @param pos posición del array
-     * 
-     * @param val valor a introducir
-     */
-    public void setValue(int pos, int val) {
-        this.lista[pos] = val;
+        }
+        Random random = new Random();
+        int numero = random.nextInt(99) + 1;
+        this.lista[position] = numero;
+        System.out.println(Thread.currentThread().getName() + ": Produce el numero " + numero);
+        notifyAll();
     }
 
     /**
@@ -74,9 +73,20 @@ public class Lista {
      * 
      * @param pos Posición del valor a eliminar
      */
-    public int borra(int pos) {
+    public synchronized void borra(int pos) {
+        if (pos == 3) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+
+        }
         int vuelta = this.lista[pos];
         this.lista[pos] = 0;
-        return vuelta;
+        System.out.println(Thread.currentThread().getName() + ": Consume el numero " + vuelta);
+        notifyAll();
+        
     }
 }
