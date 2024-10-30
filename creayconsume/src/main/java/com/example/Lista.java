@@ -74,7 +74,9 @@ public class Lista {
      * 
      * @param pos Posición del valor a eliminar
      */
-    private void borrarValor(int pos) {
+    public int borra(int pos) {
+        int vuelta = this.lista[pos];
         this.lista[pos] = 0;
+        return vuelta;
     }
 }

@@ -2,7 +2,7 @@ package com.example;
 
 public class Escritor extends Thread {
 
-     Lista lista = new Lista();
+    Lista lista = new Lista();
 
     public Escritor(Lista lista) {
         this.lista = lista;
@@ -19,6 +19,7 @@ public class Escritor extends Thread {
                     System.out.println(Thread.currentThread().getName() + ": Produce el numero " + lista.escribe(0));
                     try {
                         Thread.sleep(500);
+                        notifyAll();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -30,6 +31,7 @@ public class Escritor extends Thread {
                     System.out.println(Thread.currentThread().getName() + ": Produce el numero " + lista.escribe(1));
                     try {
                         Thread.sleep(500);
+                        notifyAll();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -40,6 +42,7 @@ public class Escritor extends Thread {
                     System.out.println(Thread.currentThread().getName() + ": Produce el numero " + lista.escribe(2));
                     try {
                         Thread.sleep(500);
+                        notifyAll();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -47,7 +50,7 @@ public class Escritor extends Thread {
                 
 
                 default:
-                    System.out.println("Lista llena, espero ... ");
+                    System.out.println(Thread.currentThread().getName() + ": Lista llena, espero ... ");
                     try {
                         this.wait();
                     } catch (InterruptedException e) {
