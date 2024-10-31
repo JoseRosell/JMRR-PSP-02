@@ -15,16 +15,32 @@ public class Escritor extends Thread {
 
                 switch (lista.getPosicionDeTrabajo()) {
                     case 0:
+                    try {
+                        this.sleep(500);
                         lista.escribe(0);
                         break;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     case 1:
+                    try {
+                        this.sleep(500);
                         lista.escribe(1);
                         break;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     case 2:
+                    try {
+                        this.sleep(500);
                         lista.escribe(2);
                         break;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                        
 
                     default:
                         System.out.println(Thread.currentThread().getName() + ": Lista llena, espero ... ");
@@ -34,12 +50,6 @@ public class Escritor extends Thread {
                             e.printStackTrace();
                         }
                         break;
-                }
-
-                try {
-                    this.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
 

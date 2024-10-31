@@ -15,7 +15,6 @@ public class Lista {
      * 
      */
     public int getPosicionDeTrabajo() {
-        synchronized(this){
         if (this.lista[0] == 0) {
             if (Thread.currentThread().getName().equals("Escritor1")) {
                 return 0;
@@ -44,7 +43,6 @@ public class Lista {
             }
         }
     }
-    }
 
     /**
      * Método que escribe donde se le indica, una cifra aleatoria entre 1 y 100
@@ -53,12 +51,12 @@ public class Lista {
      */
     public synchronized void escribe(int position) {
         if (position == 3) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return;
-            }
+            //try {
+              //  this.wait();
+            //} catch (InterruptedException e) {
+              //  Thread.currentThread().interrupt();
+               return;
+            //}
 
         }
         Random random = new Random();
@@ -75,12 +73,12 @@ public class Lista {
      */
     public synchronized void borra(int pos) {
         if (pos == 3) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+           // try {
+           //     this.wait();
+           // } catch (InterruptedException e) {
+          //      Thread.currentThread().interrupt();
                 return;
-            }
+           // }
 
         }
         int vuelta = this.lista[pos];
