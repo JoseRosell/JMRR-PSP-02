@@ -11,36 +11,32 @@ public class Escritor extends Thread {
     @Override
     public void run() {
         while (true) {
-            synchronized (lista) {
 
+            try {
                 switch (lista.getPosicionDeTrabajo()) {
                     case 0:
                         lista.escribe(0);
+                        Thread.sleep(500);
                         break;
 
                     case 1:
                         lista.escribe(1);
+                        Thread.sleep(500);
                         break;
 
                     case 2:
                         lista.escribe(2);
+                        Thread.sleep(500);
                         break;
-
+                        
                     default:
-                        System.out.println(Thread.currentThread().getName() + ": Lista llena, espero ... ");
-                        try {
-                            lista.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        lista.escribe(3);
                         break;
+
                 }
 
-                try {
-                    this.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
         }

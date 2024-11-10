@@ -40,7 +40,7 @@ public class Lista {
             if (Thread.currentThread().getName().equals("Escritor1")) {
                 return 3;
             } else {
-                return 2;
+                return 0;
             }
         }
     }
@@ -51,21 +51,18 @@ public class Lista {
      * 
      * @param position posición del Buffer en el que escribe el nuevo numero
      */
-    public synchronized void escribe(int position) {
-        if (position == 3) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return;
-            }
-
+    public synchronized void escribe(int position) throws InterruptedException {
+        while(position == 3){
+            System.out.println(Thread.currentThread().getName() + ": Lista llena, espero ... ");
+            wait();
         }
+        
         Random random = new Random();
         int numero = random.nextInt(99) + 1;
         this.lista[position] = numero;
+        System.out.println(position + " " +  Thread.currentThread().getName());
         System.out.println(Thread.currentThread().getName() + ": Produce el numero " + numero);
-        notifyAll();
+        notify();
     }
 
     /**
@@ -73,20 +70,15 @@ public class Lista {
      * 
      * @param pos Posición del valor a eliminar
      */
-    public synchronized void borra(int pos) {
-        if (pos == 3) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return;
-            }
-
+    public synchronized void borra(int pos) throws InterruptedException {
+        while (pos == 3 ){
+            System.out.println(Thread.currentThread().getName() + ": Lista vacía, espero ... ");
+            wait();
         }
         int vuelta = this.lista[pos];
         this.lista[pos] = 0;
         System.out.println(Thread.currentThread().getName() + ": Consume el numero " + vuelta);
-        notifyAll();
+        notify();
         
     }
 }

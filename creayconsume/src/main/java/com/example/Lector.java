@@ -12,37 +12,29 @@ public class Lector extends Thread {
     public void run() {
 
         while (true) {
-
-            synchronized (lista) {
+            try {
                 switch (lista.getPosicionDeTrabajo()) {
                     case 0:
                         lista.borra(0);
+                        Thread.sleep(2000);
                         break;
 
                     case 1:
                         lista.borra(1);
+                        Thread.sleep(2000);
                         break;
 
                     case 2:
                         lista.borra(2);
+                        Thread.sleep(2000);
                         break;
-
                     default:
-                        System.out.println(Thread.currentThread().getName() + ": Lista Vacía, espero ... ");
-                        try {
-                            lista.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        break;
+                    lista.borra(3);
+                    break;
                 }
-            
-            try {
-                this.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
         }
     }
 
