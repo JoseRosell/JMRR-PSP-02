@@ -15,7 +15,6 @@ public class Lista {
      * 
      */
     public int getPosicionDeTrabajo() {
-        synchronized(this){
         if (this.lista[0] == 0) {
             if (Thread.currentThread().getName().equals("Escritor1")) {
                 return 0;
@@ -44,17 +43,28 @@ public class Lista {
             }
         }
     }
-    }
 
     /**
      * Método que escribe donde se le indica, una cifra aleatoria entre 1 y 100
      * 
      * @param position posición del Buffer en el que escribe el nuevo numero
      */
+<<<<<<< HEAD
     public synchronized void escribe(int position) throws InterruptedException {
         while(position == 3){
             System.out.println(Thread.currentThread().getName() + ": Lista llena, espero ... ");
             wait();
+=======
+    public synchronized void escribe(int position) {
+        if (position == 3) {
+            //try {
+              //  this.wait();
+            //} catch (InterruptedException e) {
+              //  Thread.currentThread().interrupt();
+               return;
+            //}
+
+>>>>>>> 950c917746ca79573a98588eb94c9cae9a6c7494
         }
         
         Random random = new Random();
@@ -70,10 +80,22 @@ public class Lista {
      * 
      * @param pos Posición del valor a eliminar
      */
+<<<<<<< HEAD
     public synchronized void borra(int pos) throws InterruptedException {
         while (pos == 3 ){
             System.out.println(Thread.currentThread().getName() + ": Lista vacía, espero ... ");
             wait();
+=======
+    public synchronized void borra(int pos) {
+        if (pos == 3) {
+           // try {
+           //     this.wait();
+           // } catch (InterruptedException e) {
+          //      Thread.currentThread().interrupt();
+                return;
+           // }
+
+>>>>>>> 950c917746ca79573a98588eb94c9cae9a6c7494
         }
         int vuelta = this.lista[pos];
         this.lista[pos] = 0;
