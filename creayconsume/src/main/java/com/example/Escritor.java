@@ -16,7 +16,6 @@ public class Escritor extends Thread {
                 switch (lista.getPosicionDeTrabajo()) {
                     case 0:
                     try {
-                        this.sleep(500);
                         lista.escribe(0);
                         Thread.sleep(500);
                         break;
@@ -26,7 +25,6 @@ public class Escritor extends Thread {
 
                     case 1:
                     try {
-                        this.sleep(500);
                         lista.escribe(1);
                         Thread.sleep(500);
                         break;
@@ -36,30 +34,23 @@ public class Escritor extends Thread {
 
                     case 2:
                     try {
-                        this.sleep(500);
                         lista.escribe(2);
                         Thread.sleep(500);
                         break;
-<<<<<<< HEAD
-                        
-=======
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                         
 
->>>>>>> 950c917746ca79573a98588eb94c9cae9a6c7494
                     default:
                         lista.escribe(3);
+                        Thread.sleep(500);
                         break;
 
                 }
-<<<<<<< HEAD
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
-=======
->>>>>>> 950c917746ca79573a98588eb94c9cae9a6c7494
             }
 
         }
